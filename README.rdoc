@@ -1,0 +1,102 @@
+= Redmine Warbler
+
+This plugin adds functionality to ease the deployment in a servlet container.
+
+It depends on JRuby (>= 1.4.0) and Redmine (>= 0.9). Besides the gems, that are
+needed by Redmine, you will also need to install the following dependencies
+into your JRuby enviroment:
+
+* activerecord-jdbc-adapter (>= 0.9.4)
+* jruby-openssl
+* warbler (>= 1.0)
+
+and depending on your database of choice
+
+* activerecord-jdbcmysql-adapter (>= 0.9.4)
+* jdbc-mysql
+
+or
+
+* activerecord-jdbcpostgresql-adapter (>= 0.9.4)
+* jdbc-postgresql
+
+
+= Acknowledgments
+
+This plugin is only glueing together the great works of others - namely the
+{Redmine}[http://www.redmine.org/] and {JRuby}[http://jruby.org/] community. If
+you like this plugin, please make sure, to let them know.
+
+
+= Quick Start (Advanced users)
+
+If you have solid knowledge about the installation process of Redmine an
+Rails projects in general and also have already deployed JRuby on Rails
+projects, this guide is for you.
+
+
+== Configuring the servlet container
+
+Redmine stores information in two different places. Both need to be configured.
+
+=== A. The database
+
+In order to get Redmine running with you database, simple configure a JNDI data
+source in your servlet container and redmine source.
+
+Just update @config/database.yml@ to contain the following production
+configuration
+
+  production:
+      adapter: mysql         # or postgresql
+      jndi:    jdbc/redmine  # or something matching your enterprisey rules
+
+Make sure to also provide a JNDI data source with the same name in your servlet
+container.
+
+=== B. The file system
+
+Attachments are stored in the local file system. The location, where they should
+be stored is configurable. Simply set a system property named
+
+  redmine.configuration.storage_path 
+
+Make sure, that this location is writable for the user, that is running your
+servlet container. We also highly recommend to include this directory in your
+backup scripts.
+
+
+== How to build a war file
+
+Building a war file for your live system is as simple as running
+
+  $ rake war
+
+from within the your local Redmine source's root. This will create a 
+@redmine.war@ in the very same directory. All you have to do now, is deploying
+this file to your server.
+
+
+= Step-by-step Guide (Redmine and JRuby Beginners)
+
+This guide will start with an system where your database is installed and a
+servlet container is readily set up. Furthermore, you have got a proper JRuby
+installation. (I you do not have one, we recommend using
+{RVM}[http://rvm.beginrescueend.com/] to set it up.) All the rest will be
+covered here.
+
+This guide is largely copied from http://www.redmine.org/wiki/redmine/RedmineInstall
+
+*TODO*
+
+
+= Contributions, Bugs, Feedback
+
+*TODO*
+
+
+= License
+
+This code is free to use under the terms of the MIT license. 
+
+  :include: License.txt
