@@ -44,7 +44,7 @@ Redmine stores information in two different places. Both need to be configured.
 In order to get Redmine running with you database, simple configure a JNDI data
 source in your servlet container and redmine source.
 
-Just update @config/database.yml@ to contain the following production
+Just update <code>config/database.yml</code> to contain the following production
 configuration
 
   production:
