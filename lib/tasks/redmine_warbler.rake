@@ -2,8 +2,9 @@ begin
   require 'warbler'
 
   Warbler::Task.new("war", Warbler::Config.new do |config|
-    # configure jndi data source in web.xml
-    jndi = RedmineWarbler.jndi_identifier(Rails.configuration)
+    # configure jndi sources in web.xml
+    jndi = RedmineWarbler::Jdbc.jndi_identifier(Rails.configuration)
+
     config.webxml.jndi = jndi unless jndi.blank?
 
     # add .specification for rubytree to avoid warning in servlet start up

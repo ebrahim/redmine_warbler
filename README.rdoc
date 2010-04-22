@@ -79,7 +79,7 @@ this file to your server.
 
 = Step-by-step Guide (Redmine and JRuby Beginners)
 
-This guide will start with an system where your database is installed and a
+This guide will start with a system where your database is installed and a
 servlet container is readily set up. Furthermore, you have got a proper JRuby
 installation. (I you do not have one, we recommend using
 {RVM}[http://rvm.beginrescueend.com/] to set it up.) All the rest will be
