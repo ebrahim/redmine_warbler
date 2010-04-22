@@ -21,8 +21,6 @@ module RedmineWarbler # :nodoc:
       return
     end
 
-    return unless $servlet_context # running outside of Servlet container. Nothing to do.
-
     storage_path = java.lang.System.getProperty(property_name)
     if storage_path.blank? 
       Rails.logger.info("\nUse the System Property '#{property_name}' to set a storage path outside of the war file.")
