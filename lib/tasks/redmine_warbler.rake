@@ -1,6 +1,18 @@
 begin
   require 'warbler'
+rescue LoadError
+  task :war => 'war:missing'
+  namespace :war do
+    task :debug => :missing
+    task :clean => :missing
 
+    task :missing do
+      puts "'warbler' missing. Fix with '[sudo] gem install warbler' and try again."
+      exit 1
+    end
+  end
+
+else
   Warbler::Task.new("war", Warbler::Config.new do |config|
     # configure jndi sources in web.xml
     jndi = RedmineWarbler::Jdbc.jndi_identifier(Rails.configuration)
@@ -12,16 +24,4 @@ begin
     config.includes << rubytree_spec if File.exist?(rubytree_spec)
   end)
 
-rescue LoadError
-
-  task :war => 'war:missing'
-  namespace :war do
-    task :debug => :missing
-    task :clean => :missing
-
-    task :missing do
-      puts "'warbler' missing. Fix with '[sudo] gem install warbler' and try again."
-      exit 1
-    end
-  end
 end
