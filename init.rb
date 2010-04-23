@@ -2,7 +2,7 @@ require 'redmine'
 require 'dispatcher'
 
 Dispatcher.to_prepare do
-  Attachment.storage_path = RedmineWarbler.storage_path unless RedmineWarbler.storage_path.blank?
+  RedmineWarbler.init_in_container
 end
 
 Redmine::Plugin.register :redmine_warbling do
@@ -13,4 +13,6 @@ Redmine::Plugin.register :redmine_warbling do
   version '0.0.1'
 end
 
-RedmineWarbler.init
+Rails.configuration.after_initialize do
+  RedmineWarbler.init_gem_configuration(Rails.configuration)
+end

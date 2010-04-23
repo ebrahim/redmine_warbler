@@ -51,25 +51,15 @@ module RedmineWarbler # :nodoc:
   end
   self.environment   = 'production'
 
-  def self.init
-    if $servlet_context
-      RedmineWarbler.init_runtime
-    else
-      RedmineWarbler.init_configuration(Rails.configuration)
-    end
+  def self.init_in_container
+    return unless $servlet_context
+
+    storage_path = StoragePath.find
+    Attachment.storage_path = storage_path unless storage_path.blank?
+    Rails.logger.info("\nStorage path is set to #{Attachment.storage_path.inspect}.")
   end
 
-  def self.init_runtime
-    unless defined? JRUBY_VERSION
-      Rails.logger.info("\nThe RedmineWarbler Plugin is only useful in JRuby")
-      return
-    end
-
-    self.storage_path = StoragePath.find
-    Rails.logger.info("\nStorage path is set to #{self.storage_path.inspect}.")
-  end
-
-  def self.init_configuration(config)
+  def self.init_gem_configuration(config)
     return if config.gems.any? { |gem| gem.name =~ /jruby/ }
 
     warbler_gems = %w[jruby-openssl activerecord-jdbc-adapter]
