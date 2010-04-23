@@ -59,6 +59,10 @@ module RedmineWarbler # :nodoc:
     Rails.logger.info("\nStorage path is set to #{Attachment.storage_path.inspect}.")
   end
 
+  def self.init_working_copy
+    Engines::Assets.initialize_base_public_directory
+  end
+
   def self.init_gem_configuration(config)
     return if config.gems.any? { |gem| gem.name =~ /jruby/ }
 
