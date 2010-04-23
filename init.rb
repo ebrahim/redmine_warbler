@@ -14,5 +14,5 @@ Redmine::Plugin.register :redmine_warbling do
   author 'Gregor Schmidt • Finn GmbH'
   author_url 'http://github.com/finnlabs/redmine_warbler/'
   description 'This plugin adds functionality to ease the deployment in a Servlet Container.'
-  version '0.0.1'
+  version '0.1'
 end
