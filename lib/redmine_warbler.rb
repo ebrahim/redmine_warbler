@@ -64,7 +64,7 @@ module RedmineWarbler # :nodoc:
   end
 
   def self.init_gem_configuration(config)
-    return if config.gems.any? { |gem| gem.name =~ /jruby/ }
+    return if Rails.application.config.gems.any? { |gem| gem.name =~ /jruby/ }
 
     warbler_gems = %w[jruby-openssl activerecord-jdbc-adapter]
 
@@ -81,7 +81,7 @@ module RedmineWarbler # :nodoc:
     end
 
     warbler_gems.each do |gem_name|
-      config.gem gem_name, :lib => false
+      Rails.application.config.gem gem_name, :lib => false
     end
   end
 end
